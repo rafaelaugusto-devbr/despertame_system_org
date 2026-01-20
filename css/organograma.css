@@ -1,0 +1,165 @@
+.organograma-section {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background: var(--gray-light);
+}
+
+.organograma {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.nivel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+.memoria-box {
+  border-style: dashed;
+  border-color: var(--gray-medium);
+  background: #fdfdfd;
+}
+
+.falecidos-section {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background: var(--white);
+}
+
+.box-falecidos {
+  max-width: 600px;
+  margin: auto;
+  color: var(--gray-medium);
+  font-size: var(--font-size-md);
+  line-height: 1.8;
+  padding: 0 var(--spacing-sm);
+  text-align: center;
+}
+
+.box {
+  background: var(--card-bg);
+  border: 2px solid var(--primary-red);
+  border-radius: 12px;
+  padding: var(--spacing-sm);
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 5px 15px var(--shadow);
+  transition: var(--transition-fast);
+  color: inherit; 
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--shadow-dark);
+}
+
+.foto {
+  width: 60px;
+  height: 60px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  margin-bottom: var(--spacing-xs);
+  overflow: hidden;
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.nome {
+  font-weight: bold;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  color: inherit;
+}
+
+.coord{
+  font-weight: bold;
+  font-size: 10px;
+  color: inherit;
+}
+
+.cargo {
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+  color: var(--text-color-secondary);
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+
+.memoria-box {
+  border-style: dashed;
+  border-color: var(--gray-medium);
+  background: #fdfdfd;
+}
+
+.falecidos-section {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background: var(--gray-light);
+}
+
+.padroeira-section {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background: var(--white);
+}
+
+.padroeira-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  border: 3px solid var(--primary-red);
+}
+
+.padroeira-text {
+  max-width: 600px;
+  margin: auto;
+  color: var(--gray-medium);
+  font-size: var(--font-size-md);
+  line-height: 1.8;
+  padding: 0 var(--spacing-sm);
+}
+
+
+.organograma-section, .falecidos-section {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background: var(--gray-light);
+  color: var(--black);
+}
+
+@media (prefers-color-scheme: dark) {
+  .organograma-section, .falecidos-section {
+    background: #1a1a1a;
+    color: var(--white);
+  }
+
+  .box {
+    background: #2c2c2c;
+    border-color: var(--primary-red);
+  }
+
+  .memoria-box {
+    background: #2c2c2c;
+    border-color: var(--gray-medium);
+  }
+
+  .padroeira-section {
+    background: #1a1a1a;
+    color: var(--white);
+  }
+}

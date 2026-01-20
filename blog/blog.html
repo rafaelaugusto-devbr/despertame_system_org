@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Desperta-me</title>
+    
+    <link rel="icon" type="image/png" href="../img/Cabecalho.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/blog-cards.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Estilos da página do blog */
+        body { display: flex; flex-direction: column; min-height: 100vh; }
+        .blog-section { flex-grow: 1; }
+        .blog-header { text-align: center; padding: 60px 20px; color: #ffffff; position: relative; overflow: hidden; background: linear-gradient(135deg, #FFD700, #FF8C00, #DC143C, #FF8C00, #FFD700 ); background-size: 400% 400%; animation: gradientAnimation 15s ease infinite; }
+        @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .blog-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05  )"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/></svg>'); pointer-events: none; }
+        .blog-header h1 { font-size: 3rem; font-weight: 700; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); margin-bottom: 0.5rem; }
+        .blog-header p { font-size: 1.1rem; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); max-width: 600px; margin: 0 auto; opacity: 0.95; }
+
+        /* CORREÇÃO: Estilo para o link do logo */
+        .nav-logo a { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; }
+
+        /* CSS DO MENU RESPONSIVO */
+        .nav-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; z-index: 1000; }
+        @media screen and (max-width: 768px) {
+            .nav-menu { position: fixed; top: 80px; right: -100%; width: 100%; height: calc(100vh - 80px); display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: rgba(21, 21, 21, 0.98); backdrop-filter: blur(10px); transition: right 0.4s ease-in-out; }
+            .nav-menu.active { right: 0; }
+            .nav-menu li { text-align: center; padding: 1.5rem 0; }
+            .nav-menu .nav-link, .nav-menu .ajude-button { font-size: 1.5rem; }
+            .nav-toggle { display: block; position: absolute; top: 50%; right: 20px; transform: translateY(-50%); }
+            .nav-toggle.is-active i::before { content: "\f00d"; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-scrolled">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html" aria-label="Voltar para a página inicial">
+                    <img src="../img/logo_despertame.jpg" alt="Desperta-me" class="logo-img">
+                    <span>Desperta-me</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html#home" class="nav-link">Início</a></li>
+                <li><a href="../index.html#quem-somos" class="nav-link">Quem Somos</a></li>
+                <li><a href="../index.html#sobre" class="nav-link">Sobre Nós</a></li>
+                <!-- CORREÇÃO: Adicionado o link do Blog que estava faltando -->
+                <li><a href="/blog" class="nav-link active">Blog</a></li>
+                <li><a id="link-ajude-nav" target="_blank" class="ajude-button">Ajude-nos</a></li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="blog-header">
+        <h1>Nosso Blog</h1>
+        <p>Acompanhe nossas últimas postagens, reflexões e novidades.</p>
+    </header>
+
+    <main class="blog-section">
+        <div id="posts-container" class="posts-grid"></div>
+    </main>
+
+    <footer class="footer">
+        <!-- ... seu footer ... -->
+    </footer>
+
+    <!-- ... seus botões flutuantes ... -->
+    
+    <script type="module" src="../js/blog.js"></script> 
+    <script type="module" src="../js/inport.js" defer></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobile-menu');
+            const navMenu = document.querySelector('.nav-menu');
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    menuToggle.classList.toggle('is-active');
+                });
+                // CORREÇÃO: Fecha o menu ao clicar em um link
+                navMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navMenu.classList.contains('active')) {
+                            navMenu.classList.remove('active');
+                            menuToggle.classList.remove('is-active');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

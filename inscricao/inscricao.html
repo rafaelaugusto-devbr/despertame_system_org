@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscrição – Desperta-me 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inscreva-se no Desperta-me 2026 - Um retiro cristão para renovação e encontro">
+    <link rel="icon" type="image/png" href="/img/Cabecalho.ico">
+
+    <!-- Fonte / Ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/inscricao/inscricao.css">
+
+    <!-- reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LchJ1AsAAAAAKY32R-WgwjaCIvmjrXRRYw5QKP2"></script>
+</head>
+<body>
+
+<main class="container">
+    <div class="inscricao-card">
+
+        <!-- Imagem do topo -->
+        <div class="hero-image">
+            <img src="../img/hero.png" alt="Desperta-me 2026 - É tempo de despertar!" />
+        </div>
+
+        <!-- Estado: Loading -->
+        <div id="loading" class="inscricao-loading fade-in">
+            <div class="loading-icon">
+                <i class="fas fa-shield-alt"></i>
+                <div class="loading-spinner"></div>
+            </div>
+            <h2>Validando acesso seguro</h2>
+            <p>Por favor, aguarde enquanto verificamos sua conexão...</p>
+        </div>
+    
+        <!-- Estado: Conteúdo liberado -->
+        <div id="formContainer" class="hidden">
+    
+            <header class="inscricao-header slide-up">
+                <h1>Inscrição Online</h1>
+                <p>
+                    O <strong>Desperta-me 2026</strong> é um retiro cristão criado para ser
+                    um tempo de pausa, encontro e renovação espiritual.
+                </p>
+                <div class="success-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Acesso verificado</span>
+                </div>
+            </header>
+    
+            <div class="form-frame-wrapper slide-up">
+                <div class="gradient-border"></div>
+                <iframe
+                    id="formIframe"
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSf7xiZVK0s7KnZfPJsMN_EyuDMzwDH9ZGp_GzcC9aywr4KSaA/viewform?embedded=true"
+                    width="640"
+                    height="3500"
+                    frameborder="0"
+                    marginheight="0"
+                    marginwidth="0"
+                    scrolling="no"
+                    loading="lazy"
+                    title="Formulário de inscrição Desperta-me 2026"
+                    aria-label="Formulário de inscrição para o retiro Desperta-me 2026">
+                    Carregando formulário...
+                </iframe>
+            </div>
+    
+            <footer class="inscricao-footer fade-in">
+                <i class="fas fa-lock"></i>
+                <span>Suas informações estão protegidas e seguras</span>
+            </footer>
+    
+        </div>
+    
+        <!-- Estado: Bloqueado -->
+        <div id="blocked" class="hidden inscricao-blocked fade-in">
+            <i class="fas fa-exclamation-triangle blocked-icon"></i>
+            <h2>Acesso Bloqueado</h2>
+            <p>
+                Não foi possível validar seu acesso no momento.<br>
+                Por favor, verifique sua conexão com a internet e tente novamente.
+            </p>
+            <button class="retry-button" onclick="location.reload()">
+                <i class="fas fa-redo-alt"></i> Tentar Novamente
+            </button>
+        </div>
+    
+    </div>
+</main>
+
+<script src="/inscricao/inscricao.js"></script>
+
+</body>
+</html>

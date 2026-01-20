@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrições do Retiro - Desperta-me</title>
+    <link rel="icon" type="image/png" href="/img/Cabecalho.ico">
+    
+    
+    <!-- Estilos da biblioteca de telefone intl-tel-input -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/manu/manu.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="/img/logo_despertame.jpg" alt="Desperta-me Logo" class="logo-img">
+                <h1 class="site-title">Desperta-me</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="status-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                
+                <h2 class="main-message">As inscrições para o retiro ainda não foram abertas.</h2>
+                <p class="sub-message">Deixe seus dados abaixo e seja o primeiro a saber!</p>
+
+                <div class="notification-section">
+                    <form class="lead-form" id="leadForm" novalidate>
+                        <!-- Campo Nome -->
+                        <div class="form-group">
+                            <label for="nome" class="form-label"><i class="fas fa-user"></i> Nome Completo</label>
+                            <input type="text" id="nome" class="form-input" placeholder="Digite seu nome completo" required>
+                        </div>
+
+                        <!-- Campo E-mail -->
+                        <div class="form-group">
+                            <label for="email" class="form-label"><i class="fas fa-envelope"></i> E-mail</label>
+                            <input type="email" id="email" class="form-input" placeholder="Seu melhor e-mail" required>
+                        </div>
+
+                        <!-- Campo Telefone com Bandeiras -->
+                        <div class="form-group">
+                            <label for="telefone" class="form-label"><i class="fas fa-phone"></i> Telefone (WhatsApp )</label>
+                            <input type="tel" id="telefone" class="form-input" required>
+                        </div>
+                        
+                        <button type="submit" class="notify-button" id="submitButton">
+                            <i class="fas fa-bell"></i>
+                            <span>Avisar-me</span>
+                        </button>
+                    </form>
+                    
+                    <!-- A mensagem de erro ainda pode ser útil -->
+                    <div class="message" id="errorMessage">
+                        <i class="fas fa-times-circle"></i>
+                        Ocorreu um erro. Por favor, tente novamente.
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <a href="/" class="notify-button back-button">← Voltar à Página Principal</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/img/logo_despertame.jpg" alt="Desperta-me" class="logo-img">
+                    <span>Desperta-me</span>
+                </div>
+                <div class="footer-text">
+                    <p>Todos os direitos reservados - Desperta-me 2025</p>
+                    <div class="security-badge">
+                        <i class="fas fa-lock"></i>
+                        <span>Site Seguro</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================================================== -->
+    <!--            ESTRUTURA DO POPUP DE SUCESSO           -->
+    <!-- ================================================== -->
+    <div class="popup-overlay" id="successPopupOverlay">
+        <div class="popup-content">
+            <img src="/img/logo_despertame.jpg" alt="Desperta-me Logo" class="popup-logo">
+            <h2 class="popup-title">Inscrição Recebida!</h2>
+            <p class="popup-text">Obrigado! Avisaremos você assim que as inscrições para o retiro abrirem.</p>
+            <button class="popup-button" id="closePopupButton">Continuar</button>
+        </div>
+    </div>
+    
+    <!-- Script da biblioteca de telefone intl-tel-input -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
+    
+    <!-- Seu script principal -->
+    <script src="/manu/manu.js"></script>
+</body>
+</html>
