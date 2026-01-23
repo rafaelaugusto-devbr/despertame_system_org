@@ -89,6 +89,29 @@ body {
     color: var(--primary-red);
 }
 
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Garante que as logos não quebrem o layout */
+.logo-group .logo-img {
+    width: 36px;
+    height: 36px;
+}
+
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.logo-group .logo-img {
+    width: 36px;
+    height: 36px;
+}
+
 .logo-img {
     width: 40px;
     height: 40px;
@@ -284,6 +307,21 @@ body {
     height: 4px;
     background: var(--primary-gradient);
     border-radius: 2px;
+}
+
+#quem-somos a {
+    color: var(--primary-red);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+#quem-somos a:hover {
+    color: var(--primary-orange);
+    text-decoration: underline;
+}
+
+#quem-somos a:visited {
+    color: var(--primary-red);
 }
 
 .section-title.white {

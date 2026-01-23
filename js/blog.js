@@ -1,4 +1,4 @@
-// public/js/blog.js (Versão Completa e Corrigida)
+// public/js/blog.js (Versão Otimizada e Testada)
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -13,7 +13,7 @@ const firebaseConfig = {
     measurementId: "G-TH8XGQ1JMP"
 };
 
-const app = initializeApp(firebaseConfig );
+const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function formatarData(timestamp) {
@@ -28,52 +28,85 @@ function formatarData(timestamp) {
 }
 
 async function carregarPosts() {
-    // CORREÇÃO: Garante que estamos pegando o container correto pelo ID
     const postsContainer = document.getElementById('posts-container');
+    
     if (!postsContainer) {
-        console.error("ERRO CRÍTICO: O elemento com ID 'posts-container' não foi encontrado no blog.html.");
+        console.error("ERRO: O elemento com ID 'posts-container' não foi encontrado.");
         return;
     }
 
-    postsContainer.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1 / -1;">Carregando posts...</p>';
+    // Remove skeleton se existir
+    const skeleton = document.getElementById('loading-skeleton');
+    if (skeleton) {
+        skeleton.remove();
+    }
+
+    // Mostra loading
+    postsContainer.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1 / -1; padding: 40px;">Carregando posts...</p>';
 
     try {
         const postsRef = collection(db, 'posts');
         const q = query(postsRef, orderBy('data', 'desc'));
         const querySnapshot = await getDocs(q);
 
+        // Limpa o container
+        postsContainer.innerHTML = '';
+
         if (querySnapshot.empty) {
-            postsContainer.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1 / -1;">Ainda não há posts no blog. Volte em breve!</p>';
+            postsContainer.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1 / -1; padding: 60px 20px;">Ainda não há posts no blog. Volte em breve!</p>';
             return;
         }
 
-        let html = '';
+        // Cria cada post como um card completo
         querySnapshot.forEach(doc => {
             const post = doc.data();
             const postId = doc.id;
-            
-            // CORREÇÃO: Garante que a URL gerada está no formato correto para o firebase.json
             const postUrl = `/post/${postId}`;
 
-            html += `
-                <a href="${postUrl}" class="post-card">
-                    ${post.imagemUrl ? `<img src="${post.imagemUrl}" alt="${post.titulo}" class="post-card-image">` : '<div class="post-card-image" style="background-color: #e2e8f0;"></div>'}
-                    <div class="post-card-content">
-                        <h3 class="post-card-title">${post.titulo || 'Sem Título'}</h3>
-                        <span class="post-card-date">${formatarData(post.data)}</span>
-                        <p class="post-card-excerpt">${post.resumo || 'Clique para ler mais...'}</p>
-                        <span class="post-card-read-more">Ler Mais →</span>
+            // Cria o elemento do card
+            const card = document.createElement('a');
+            card.href = postUrl;
+            card.className = 'post-card';
+
+            // Cria a estrutura HTML do card
+            const imageHtml = post.imagemUrl 
+                ? `<img src="${post.imagemUrl}" alt="${post.titulo}" class="post-card-image">` 
+                : `<div class="post-card-image post-card-placeholder"></div>`;
+
+            card.innerHTML = `
+                ${imageHtml}
+                <div class="post-card-content">
+                    <h3 class="post-card-title">${post.titulo || 'Sem Título'}</h3>
+                    <div class="post-card-date">
+                        <i class="far fa-calendar"></i>
+                        <span>${formatarData(post.data)}</span>
                     </div>
-                </a>
+                    <p class="post-card-excerpt">${post.resumo || post.conteudo?.substring(0, 150) + '...' || 'Clique para ler mais...'}</p>
+                    <div class="post-card-footer">
+                        <span class="post-card-read-more">
+                            Ler Mais <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </div>
             `;
+
+            postsContainer.appendChild(card);
         });
 
-        postsContainer.innerHTML = html;
+        console.log(`✅ ${querySnapshot.size} post(s) carregado(s) com sucesso!`);
 
     } catch (error) {
-        console.error("Erro ao buscar posts: ", error);
-        postsContainer.innerHTML = '<p style="text-align: center; color: #DC143C; grid-column: 1 / -1;">Ocorreu um erro ao carregar os posts. Verifique o console para mais detalhes.</p>';
+        console.error("❌ Erro ao buscar posts:", error);
+        postsContainer.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                <p style="color: #DC143C; font-size: 1.2rem; margin-bottom: 10px;">
+                    <i class="fas fa-exclamation-triangle"></i> Erro ao carregar posts
+                </p>
+                <p style="color: #64748b;">Tente recarregar a página. Se o erro persistir, contate o suporte.</p>
+            </div>
+        `;
     }
 }
 
+// Aguarda o DOM carregar completamente
 document.addEventListener('DOMContentLoaded', carregarPosts);
