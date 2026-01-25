@@ -1,7 +1,7 @@
-// public/js/blog.js (Versão Otimizada e Testada)
+// public/js/blog.js (Versão com Debug)
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA8nykV5bBkk2SflhOjnt3IbqVHKO-qTcE",
@@ -45,15 +45,34 @@ async function carregarPosts() {
     postsContainer.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1 / -1; padding: 40px;">Carregando posts...</p>';
 
     try {
+        // PRIMEIRO: Vamos buscar TODOS os posts para ver o que tem
         const postsRef = collection(db, 'posts');
-        const q = query(postsRef, orderBy('data', 'desc'));
+        const allPostsQuery = query(postsRef, orderBy('data', 'desc'));
+        const allPosts = await getDocs(allPostsQuery);
+        
+        console.log('🔍 TOTAL DE POSTS NA BASE:', allPosts.size);
+        
+        // Mostra os status de cada post
+        allPosts.forEach(doc => {
+            const post = doc.data();
+            console.log('📄 Post:', post.titulo, '| Status:', post.status, '| Tipo:', typeof post.status);
+        });
+
+        // AGORA busca só os publicados
+        const q = query(
+            postsRef, 
+            where('status', '==', 'publicado'),
+            orderBy('data', 'desc')
+        );
         const querySnapshot = await getDocs(q);
+
+        console.log('✅ POSTS PUBLICADOS:', querySnapshot.size);
 
         // Limpa o container
         postsContainer.innerHTML = '';
 
         if (querySnapshot.empty) {
-            postsContainer.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1 / -1; padding: 60px 20px;">Ainda não há posts no blog. Volte em breve!</p>';
+            postsContainer.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1 / -1; padding: 60px 20px;">Ainda não há posts publicados no blog. Volte em breve!</p>';
             return;
         }
 
@@ -97,12 +116,14 @@ async function carregarPosts() {
 
     } catch (error) {
         console.error("❌ Erro ao buscar posts:", error);
+        console.error("❌ Detalhes do erro:", error.message);
         postsContainer.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
                 <p style="color: #DC143C; font-size: 1.2rem; margin-bottom: 10px;">
                     <i class="fas fa-exclamation-triangle"></i> Erro ao carregar posts
                 </p>
                 <p style="color: #64748b;">Tente recarregar a página. Se o erro persistir, contate o suporte.</p>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 10px;">${error.message}</p>
             </div>
         `;
     }
